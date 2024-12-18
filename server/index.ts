@@ -1,16 +1,14 @@
 import express, { Express } from 'express';
 import "dotenv/config";
-import router from './router/router';
+import router from './src/controllers/dataContoller';
 import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
 import cors from "cors";
 import chalk from "chalk"; 
 
-import loadInitialData from './src/initailData';
 
 const app: Express = express();
 
-loadInitialData().catch(console.error);
 
 app.use(cors({
     origin: "http://localhost:5173",
@@ -24,7 +22,7 @@ app.use(router);
 // התחברות ל-MongoDB עם לוגים צבעוניים
 mongoose.connect(process.env.MONGO_URI || "")
   .then(() => {
-    console.log(chalk.cyanBright("Connected to MongoDB Atlas")); 
+    console.log(chalk.cyanBright("Connected to MongoDB")); 
   })
   .catch((error) => {
     console.error(chalk.red("Error connecting to MongoDB:", error));  // לוג אדום כשיש שגיאה
