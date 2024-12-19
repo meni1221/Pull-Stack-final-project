@@ -1,6 +1,6 @@
 import express, { Express } from 'express';
 import "dotenv/config";
-import router from './src/controllers/dataContoller';
+import router from './router/router';
 import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
 import cors from "cors";
@@ -17,6 +17,7 @@ app.use(cors({
 
 app.use(express.json());
 app.use(cookieParser());
+
 app.use(router);
 
 // התחברות ל-MongoDB עם לוגים צבעוניים
