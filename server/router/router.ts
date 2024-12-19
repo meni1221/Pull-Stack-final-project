@@ -1,18 +1,21 @@
-import express, { IRouter, NextFunction, Request, Response }  from 'express'
-import dataContoller from "../src/controllers/dataContoller"
-import authController from "../src/controllers/authController"
-import { verifyAdmin, verifyUser } from '../helpers/jwt';
-import { handleError } from '../utils/ErrorHandle';
+import express, { IRouter, Request, Response } from "express";
+import {
+  DeadliestTerrorism,
+  HighCasualtyArea,
+} from "../src/controllers/dataContoller";
+import { handleError } from "../utils/ErrorHandle";
 
-const router:IRouter = express.Router()
+const router: IRouter = express.Router();
 
-router.use("/data",verifyUser as NextFunction,dataContoller );
-router.use("/admin-role",verifyAdmin as NextFunction,dataContoller );
-router.use("/auth",authController );
+router.get("/api/analysis/deadliest-attack-types/", DeadliestTerrorism);
+router.get("/api/analysis/highest-casualty-regions/", HighCasualtyArea);
+// router.get("/api/analysis/incident-trends/", const);
+// router.get("/api/relationships/top-groups/", const);
+// router.get("/api/relationships/groups-by-year/", const);
+// router.get("/api/relationships/top-groups/", const);
 
-router.use((req:Request,res:Response)=>{
-handleError(res,404,"Miki is not found at Nimrodi Tower")
-})
+router.use((req: Request, res: Response) => {
+  handleError(res, 404, "page is not found");
+});
 
-
-export default router
+export default router;
