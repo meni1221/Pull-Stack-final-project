@@ -1,11 +1,10 @@
-import Map from './components/Map'
-import Graph from './components/Graph'
+import Layout from './layout/Layout'
+import AppRoutes from './router/AppRoutes'
 
-export default function App() {
+function App() {
   return (
-    <>
-      <Map/>
-      <Graph/>
-    </>
+    <Layout children={<AppRoutes/>}/>
   )
 }
+
+export default App
