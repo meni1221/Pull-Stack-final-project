@@ -28,28 +28,34 @@ const getHighCasualtyArea = async () => {
   try {
     const Terrorism = await Terror.aggregate([
       {
-        $project: {
-          region: "$region_txt",
-          total_casualties: {
-            $add: [{ $ifNull: ["$nwound", 0] }, { $ifNull: ["$nkill", 0] }],
+        $group: {
+          _id: {
+            region: "$region_txt",
+            city: "$city",
+            lat: "$latitude",
+            long: "$longitude",
           },
+          total: { $sum: 1 },
         },
       },
       {
         $group: {
-          _id: "$region",
-          average_casualties: { $avg: "$total_casualties" },
+          _id: { region: "$_id.region", lat: "$_id.lat", long: "$_id.long" },
+          total: { $sum: "$total" },
+          totalKills: { $sum: { $sum: ["$nkill", "$nwound"] } },
         },
       },
-
       {
         $project: {
-          region: "$_id",
-          average_casualties: 1,
+          _id: 0,
+          region: "$_id.region",
+          count: { $avg: ["$total", "$totalKills"] },
+          lat: "$_id.lat",
+          long: "$_id.long",
         },
       },
       {
-        $sort: { average_casualties: -1 },
+        $sort: { count: 1 },
       },
     ]);
     return Terrorism;
