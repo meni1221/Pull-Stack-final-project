@@ -1,6 +1,4 @@
-import { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import useFetch from "../hooks/useFetch";
 
 interface Terror {
   _id: string;
@@ -9,57 +7,39 @@ interface Terror {
   lat: number;
   long: number;
 }
-const Map = () => {
-  const [terrors, setTerrors] = useState<Terror[]>([]);
-  const { data, GET } = useFetch(
-    "http://localhost:8181/api/analysis/highest-casualty-regions/"
+
+interface MapProps {
+  data: Terror[];
+}
+const Map = ({ data }: MapProps) => {
+  const filteredData = data.filter(
+    (region) => region.lat !== null && region.long !== null
   );
 
-  useEffect(() => {
-    GET();
-  }, []);
-
-  useEffect(() => {
-    console.log("Data fetched:", data);
-    if (data && Array.isArray(data)) {
-      setTerrors(data);
-    } else {
-      console.error("Invalid data format");
-    }
-  }, [data]);
-
-  if (!data || !Array.isArray(data)) {
-    return <div>לא ניתן לטעון את המפה. בדוק את הנתונים.</div>;
-  }
+  const centerPosition: [number, number] =
+    filteredData.length > 0
+      ? [filteredData[0].lat as number, filteredData[0].long as number]
+      : [0, 0];
 
   return (
-    <MapContainer
-      center={[34.83639, 32.08556]}
-      zoom={5}
-      scrollWheelZoom={true}
-      style={{ minHeight: "50vh", minWidth: "50vw" }}
-    >
+    <MapContainer center={centerPosition} zoom={6} style={{ height: "100vh", width: "100%" }}>
       <TileLayer
-        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       />
-      {terrors.map((terror) => (
-        <Marker
-          key={terror._id}
-          position={
-            terror.lat && terror.long
-              ? [terror.lat as number, terror.long as number]
-              : [0, 0]
-          }
-        >
+
+      {filteredData.map((region, index) => (
+        <Marker key={index} position={[region.lat as number, region.long as number]}>
           <Popup>
-            <strong>אזור:</strong> {terror.region} <br />
-            <strong>נפגעים:</strong> {terror.count || 0} <br />
+            <strong>{region.region + " "}</strong>
+            <br />
+            נפגעים: {region.count}
           </Popup>
         </Marker>
       ))}
     </MapContainer>
   );
-};
+}        
+
 
 export default Map;
