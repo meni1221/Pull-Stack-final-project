@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Bar, BarChart, ResponsiveContainer } from "recharts";
+import { CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts";
 import useFetch from "../hooks/useFetch";
 import ITerror from "../interface/Terror";
+import { Tooltip } from "react-leaflet";
 
 const Graph: React.FC = () => {
   const [terrors, setTerrors] = useState<ITerror[]>([]);
@@ -19,11 +20,13 @@ const Graph: React.FC = () => {
   }, [data]);
 
   return (
-    <ResponsiveContainer width="100%" height={400}>
-      <BarChart data={terrors}>
-        <Bar dataKey="total" fill="red" xAxisId="two" barSize={30} />
-      </BarChart>
-    </ResponsiveContainer>
+    <LineChart width={2000} height={300} data={terrors} accessibilityLayer>
+      <XAxis dataKey="_id" />
+      <YAxis />
+      <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
+      <Line type="monotone" dataKey="total" stroke="#82ca9d" />
+      <Tooltip />
+    </LineChart>
   );
 };
 
