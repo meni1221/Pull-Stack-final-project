@@ -10,11 +10,11 @@ export default function Footer() {
         bottom: 0,
         left: 0,
         right: 0,
-        height: "2vh",
+        height: "5vh",
         background: "rgb(67, 90, 171)",
       }}
     >
-      Created By Meni Levi 2024
-    </Box>
+        <p>© {new Date().getFullYear()} Meni Levi</p>
+        </Box>
   );
 }
