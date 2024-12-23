@@ -16,11 +16,11 @@ const Graph: React.FC = () => {
 
   useEffect(() => {
     if (data) setTerrors(data);
-    else console.log("not buses");
+    else console.log("not terrors");
   }, [data]);
 
   return (
-    <LineChart width={2000} height={300} data={terrors} accessibilityLayer>
+    <LineChart width={1266} height={250} data={terrors} accessibilityLayer>
       <XAxis dataKey="_id" />
       <YAxis />
       <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
