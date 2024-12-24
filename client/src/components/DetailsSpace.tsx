@@ -27,7 +27,7 @@ export default function DetailsSpace({ data, urlToMakeGetData }: Props) {
       <DetailsSpaceByYearsWithGraph urlToMakeGetRequest={urlToMakeGetData} />
     );
   } else if (
-    urlToMakeGetData === "http://localhost:8181/api/relationships/top-groups"
+    urlToMakeGetData === "http://localhost:8181/relationships/top-groups"
   ) {
     return <TopTerrorGroupsByRegion urlToMakeGetRequest={urlToMakeGetData} />;
   }
