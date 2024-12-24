@@ -1,6 +1,6 @@
 import express, { IRouter, Request, Response } from "express";
 import {
-  addEvent,
+  addTerrorEventService,
   getDeadliestRegionsByGroup,
   getDeadliestTerrorism,
   getHighCasualtyArea,
@@ -9,6 +9,7 @@ import {
   getTerrorOrgByYear,
 } from "../services/dataService";
 import { handleError } from "../../utils/ErrorHandle";
+import { ITerror } from "../models/terror";
 
 const router: IRouter = express.Router();
 
@@ -90,14 +91,17 @@ const DeadliestRegionsByGroup = async (req: Request, res: Response) => {
   }
 };
 
-router.post("/", async (req: Request, res: Response): Promise<void> => {
+export const addTerrorEvent = async (req: Request, res: Response): Promise<void> => {
+  const terrorEventFromBody: Partial<ITerror> = req.body;    
   try {
-    const event = await addEvent(req.body);
-    res.status(201).json(event);
-  } catch (error: any) {
-    handleError(res, error.status || 400, error.message);
+    if (terrorEventFromBody) {
+      const newTerrorEvent = await addTerrorEventService(terrorEventFromBody);
+      res.status(201).json(newTerrorEvent);
+    }
+  } catch (error) {
+    res.status(500).json(error);
   }
-});
+};
 
 export {
   DeadliestTerrorism,
