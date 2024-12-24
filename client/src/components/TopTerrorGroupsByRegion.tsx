@@ -40,17 +40,19 @@ export default function TopTerrorGroupsByRegion({urlToMakeGetRequest}: MapProps)
   
 
   const fetchRegionsName = async () => {
-    const data = await getData(`http://localhost:3222/api/getRegionsName`);
+    const data = await getData(`http://localhost:8181/getRegionsName`);
     setRegionsNames(data);
   };
   useEffect(() => {
     fetchRegionsName(); 
   }, []);
   
+  
   const fetchTerrorGroups = async (region: string) => {    
     const data = await getData(`${urlToMakeGetRequest}?regionName=${region}`);
     setTerrorGroups(data);
   };
+  
   useEffect(() => {
     fetchTerrorGroups(region); 
   }, [region]);
