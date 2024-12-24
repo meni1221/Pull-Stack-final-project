@@ -119,4 +119,6 @@ export default function DetailsSpaceWithGraph({ data }: GraphProps) {
       <Bar data={chartData} options={options} />
     </Box>
   );
+  console.log(chartData);
 }
+
