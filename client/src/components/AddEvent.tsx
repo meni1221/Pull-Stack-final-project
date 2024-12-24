@@ -14,14 +14,14 @@ import { addEvent } from "../services/dataService";
 import ITerror from "../interface/Terror";
 
 const AddEvent: FC = () => {
-  const [terrorEvent, setTerrorEvent] = useState<Partial<ITerror>>({
+  const [Terror, setTerrorEvent] = useState<Partial<ITerror>>({
     eventid: 0,
-    iyear: 0,
-    imonth: 0,
-    iday: 0,
+    iyear: 2024,
+    imonth: 1,
+    iday: 1,
     country_txt: "TLV",
     region_txt: "TLV",
-    city: "TLV",
+    city: "jeruselm",
     latitude: 0,
     longitude: 0,
     attacktype1_txt: "TLV",
@@ -31,7 +31,7 @@ const AddEvent: FC = () => {
     weaptype1_txt: "TLV",
     nkill: 0,
     nwound: 0,
-    summary: "TLV",
+    summary: "A tragic terror attack unfolded today, claiming innocent lives and leaving many injured. Authorities are investigating, urging unity and resilience.",
   });
 
   const [open, setOpen] = useState(false);
@@ -59,7 +59,9 @@ const AddEvent: FC = () => {
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     try {
-      const response = await addEvent(terrorEvent);  
+      const response = await addEvent(Terror);  
+      console.log(Terror);
+      
       setOpen(false);       
       if (response) {
       } else {
@@ -79,11 +81,11 @@ const AddEvent: FC = () => {
         onClick={() => setOpen(true)}
         sx={{ height: "7vh" }}
       >
-        Add Terror Event
+        Add Event
       </Button>
 
       <Dialog open={open} onClose={() => setOpen(false)} fullWidth maxWidth="sm">
-        <DialogTitle>Add Terror Event</DialogTitle>
+        <DialogTitle>Add Event</DialogTitle>
         <DialogContent sx={{ maxHeight: "70vh", overflowY: "auto" }}>
           <form onSubmit={handleSubmit}>
             <TextField
@@ -91,7 +93,7 @@ const AddEvent: FC = () => {
               label="Event ID"
               name="eventid"
               type="number"
-              value={terrorEvent.eventid}
+              value={Terror.eventid}
               required
               onChange={handleChange}
               sx={{ mb: 2 }}
@@ -101,7 +103,7 @@ const AddEvent: FC = () => {
               label="Year"
               name="iyear"
               type="number"
-              value={terrorEvent.iyear}
+              value={Terror.iyear}
               required
               onChange={handleChange}
               sx={{ mb: 2 }}
@@ -111,7 +113,7 @@ const AddEvent: FC = () => {
               label="Month"
               name="imonth"
               type="number"
-              value={terrorEvent.imonth}
+              value={Terror.imonth}
               required
               onChange={handleChange}
               sx={{ mb: 2 }}
@@ -121,7 +123,7 @@ const AddEvent: FC = () => {
               label="Day"
               name="iday"
               type="number"
-              value={terrorEvent.iday}
+              value={Terror.iday}
               required
               onChange={handleChange}
               sx={{ mb: 2 }}
@@ -130,7 +132,7 @@ const AddEvent: FC = () => {
               fullWidth
               label="Country"
               name="country_txt"
-              value={terrorEvent.country_txt}
+              value={Terror.country_txt}
               required
               onChange={handleChange}
               sx={{ mb: 2 }}
@@ -139,7 +141,7 @@ const AddEvent: FC = () => {
               fullWidth
               label="Region"
               name="region_txt"
-              value={terrorEvent.region_txt}
+              value={Terror.region_txt}
               required
               onChange={handleChange}
               sx={{ mb: 2 }}
@@ -148,7 +150,7 @@ const AddEvent: FC = () => {
               fullWidth
               label="City"
               name="city"
-              value={terrorEvent.city}
+              value={Terror.city}
               required
               onChange={handleChange}
               sx={{ mb: 2 }}
@@ -158,7 +160,7 @@ const AddEvent: FC = () => {
               label="Latitude"
               name="latitude"
               type="number"
-              value={terrorEvent.latitude}
+              value={Terror.latitude}
               required
               onChange={handleChange}
               sx={{ mb: 2 }}
@@ -168,7 +170,7 @@ const AddEvent: FC = () => {
               label="Longitude"
               name="longitude"
               type="number"
-              value={terrorEvent.longitude}
+              value={Terror.longitude}
               required
               onChange={handleChange}
               sx={{ mb: 2 }}
@@ -177,7 +179,7 @@ const AddEvent: FC = () => {
               fullWidth
               label="Attack Type"
               name="attacktype1_txt"
-              value={terrorEvent.attacktype1_txt}
+              value={Terror.attacktype1_txt}
               required
               onChange={handleChange}
               sx={{ mb: 2 }}
@@ -186,7 +188,7 @@ const AddEvent: FC = () => {
               fullWidth
               label="Target Type"
               name="targtype1_txt"
-              value={terrorEvent.targtype1_txt}
+              value={Terror.targtype1_txt}
               required
               onChange={handleChange}
               sx={{ mb: 2 }}
@@ -195,7 +197,7 @@ const AddEvent: FC = () => {
               fullWidth
               label="Target"
               name="target1"
-              value={terrorEvent.target1}
+              value={Terror.target1}
               required
               onChange={handleChange}
               sx={{ mb: 2 }}
@@ -204,7 +206,7 @@ const AddEvent: FC = () => {
               fullWidth
               label="Group Name"
               name="gname"
-              value={terrorEvent.gname}
+              value={Terror.gname}
               required
               onChange={handleChange}
               sx={{ mb: 2 }}
@@ -213,7 +215,7 @@ const AddEvent: FC = () => {
               fullWidth
               label="Weapon Type"
               name="weaptype1_txt"
-              value={terrorEvent.weaptype1_txt}
+              value={Terror.weaptype1_txt}
               required
               onChange={handleChange}
               sx={{ mb: 2 }}
@@ -223,7 +225,7 @@ const AddEvent: FC = () => {
               label="Number Killed"
               name="nkill"
               type="number"
-              value={terrorEvent.nkill}
+              value={Terror.nkill}
               required
               onChange={handleChange}
               sx={{ mb: 2 }}
@@ -233,7 +235,7 @@ const AddEvent: FC = () => {
               label="Number Wounded"
               name="nwound"
               type="number"
-              value={terrorEvent.nwound}
+              value={Terror.nwound}
               required
               onChange={handleChange}
               sx={{ mb: 2 }}
@@ -242,7 +244,7 @@ const AddEvent: FC = () => {
               fullWidth
               label="Summary"
               name="summary"
-              value={terrorEvent.summary}
+              value={Terror.summary}
               required
               multiline
               rows={4}

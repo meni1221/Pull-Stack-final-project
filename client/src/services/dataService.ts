@@ -11,7 +11,7 @@ export const addEvent = async (event: Partial<Terror>) : Promise<Partial<Terror>
     try {
         console.log(event);
         
-        const response = await axios.post<Partial<Terror>>(`http://localhost:8181/api/addEvent`, event);
+        const response = await axios.post<Partial<Terror>>(`http://localhost:8181/addEvent`, event);
         return response.data;
     } catch (error) {
         console.error(error);
