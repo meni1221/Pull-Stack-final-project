@@ -4,6 +4,7 @@ import ITerror from "../interface/Terror";
 import NoDetailes from "./NoDetailes";
 import { HeaderCard } from "./HeaderCard";
 import DetailsSpace from "./DetailsSpace";
+import { AddEvent } from "./AddEvent";
 
 export default function DashBoard() {
   const BASE_URL = "http://localhost:8181/api/";
@@ -13,12 +14,15 @@ export default function DashBoard() {
   return (
     <Box
       sx={{
-        marginTop: "5vh",
+        marginTop: "10vh",
       }}
     >
       <Container
         sx={{ display: "flex", flexWrap: "wrap", gap: 2, marginBottom: "20px" }}
       >
+        <Box sx={{ flex: 1, minWidth: "150px" }}>
+          <AddEvent />
+        </Box>
         <Box sx={{ flex: 1, minWidth: "150px" }}>
           <HeaderCard
             setUrlToMakeGetData={setUrlToMakeGetData}
