@@ -22,7 +22,7 @@ ChartJS.register(
 
 interface TerrorEventDetailsSpaceDTO {
   _id: string;
-  totalKills: number;
+  total: number;
 }
 
 interface GraphProps {
@@ -48,38 +48,12 @@ export default function DetailsSpaceWithGraph({ data }: GraphProps) {
     labels: filteredData.map((item) => item._id),
     datasets: [
       {
-        data: filteredData.map((item) => item.totalKills),
+        data: filteredData.map((item) => item.total),
         backgroundColor: "rgba(75, 192, 192, 0.6)",
         borderColor: "rgba(75, 192, 192, 1)",
         borderWidth: 1,
       },
     ],
-  };
-
-  const options = {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: "top" as const,
-      },
-      tooltip: {
-        enabled: true,
-      },
-    },
-    scales: {
-      x: {
-        title: {
-          display: true,
-          text: "Attack Types",
-        },
-      },
-      y: {
-        title: {
-          display: true,
-          text: "Total Kills",
-        },
-      },
-    },
   };
 
   return (
@@ -116,9 +90,8 @@ export default function DetailsSpaceWithGraph({ data }: GraphProps) {
         ))}
       </Stack>
 
-      <Bar data={chartData} options={options} />
+      <Bar data={chartData} />
     </Box>
   );
   console.log(chartData);
 }
-
