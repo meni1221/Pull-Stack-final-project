@@ -5,6 +5,7 @@ import {
   getDeadliestTerrorism,
   getHighCasualtyArea,
   getIncidentByDate,
+  getRegionsNameService,
   getTerrorOrgByRegions,
   getTerrorOrgByYear,
 } from "../services/dataService";
@@ -77,6 +78,22 @@ const TerrorOrgByYear = async (req: Request, res: Response) => {
   }
 };
 
+export const getRegionsName = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    const TerrorEvents: ITerror[] | null =
+      await getRegionsNameService();
+    if (!TerrorEvents) {
+      res.status(404).json({ msg: "Terror Events not found" });
+      return;
+    }
+    res.json(TerrorEvents);
+  } catch (error) {
+    res.status(500).json({ msg: "Server error" + error });
+  }
+};
 const DeadliestRegionsByGroup = async (req: Request, res: Response) => {
   try {
     const nameGroup = req.query.nameGroup as string;
