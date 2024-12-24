@@ -48,7 +48,6 @@ export default function DetailsSpaceByYearsWithGraph({
     setTrendData(data);
     setTrendData(data);
   };
-  console.log(trendData);
 
   useEffect(() => {
     fetchTrendData();
