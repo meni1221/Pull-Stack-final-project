@@ -220,6 +220,25 @@ export const addTerrorEventService = async (newTerrorEvent: Partial<ITerror>): P
   }
 };
 
+export const getRegionsNameService = async (): Promise<
+  ITerror[] | null
+> => {
+  try {
+    return await Terror.aggregate([
+      {
+        $group: {
+          _id: "$region_txt",
+        }
+      },
+      {
+        $sort: { _id: 1 },
+      },
+    ]);
+  } catch (error) {
+    throw new Error("Error fetching TerrorEvents");
+  }
+};
+
 export {
   getDeadliestTerrorism,
   getHighCasualtyArea,
