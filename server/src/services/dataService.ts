@@ -102,8 +102,7 @@ const getIncidentByDate = async (dateToSearch: dateToSearchDTO) => {
   }
 };
 
-
- const getTerrorOrgByRegions = async (
+const getTerrorOrgByRegions = async (
   regionName: string,
   limit: number
 ): Promise<ITerror[] | null> => {
@@ -131,9 +130,7 @@ const getIncidentByDate = async (dateToSearch: dateToSearchDTO) => {
   }
 };
 
- const getTerrorOrgByYear = async (
-  year: number
-): Promise<ITerror[] | null> => {
+const getTerrorOrgByYear = async (year: number): Promise<ITerror[] | null> => {
   try {
     return await Terror.aggregate([
       {
@@ -154,7 +151,7 @@ const getIncidentByDate = async (dateToSearch: dateToSearchDTO) => {
   }
 };
 
- const getDeadliestRegionsByGroup = async (nameGroup: string) => {
+const getDeadliestRegionsByGroup = async (nameGroup: string) => {
   try {
     const result = await Terror.aggregate([
       {
@@ -193,4 +190,22 @@ const getIncidentByDate = async (dateToSearch: dateToSearchDTO) => {
   }
 };
 
-export { getDeadliestTerrorism, getHighCasualtyArea, getIncidentByDate,getTerrorOrgByRegions,getTerrorOrgByYear,getDeadliestRegionsByGroup};
+const addEvent = async (TerrorData: ITerror) => {
+  try {
+    const newEvent = new Terror(TerrorData);
+    await newEvent.save();
+    return newEvent;
+  } catch (error: any) {
+    return handleBadRequest("MongoDB", error);
+  }
+};
+
+export {
+  getDeadliestTerrorism,
+  getHighCasualtyArea,
+  getIncidentByDate,
+  getTerrorOrgByRegions,
+  getTerrorOrgByYear,
+  getDeadliestRegionsByGroup,
+  addEvent,
+};
